@@ -36,10 +36,10 @@ internal class AMSMqttManagedClient : MqttManagedClient, IMqttManagedClient
         {
             return Task.CompletedTask;
         }
-        
+
         var location = _config.ApplicationSettingsConfig.Location();
         _counter++;
-        
+
         var detail = new Detail()
         {
             MeasurementId = Guid.NewGuid(),
@@ -52,16 +52,16 @@ internal class AMSMqttManagedClient : MqttManagedClient, IMqttManagedClient
             Location = _config.ApplicationSettingsConfig.Location(),
             ValueNum = (decimal)data.Data.P / 1000
         };
-        
+
         Console.WriteLine(
             $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.zzz")}:{JsonConvert.SerializeObject(detail)}");
 
-        _detailRepository.Add(detail);
-        
+        // _detailRepository.Add(detail);
+
         if (_counter > _config.MqttConfig.MQTTDelayCountBeforeSaveToDb())
         {
             _counter = 0;
-            _detailRepository.SaveChangesAsync(new CancellationToken());
+            // _detailRepository.SaveChangesAsync(new CancellationToken());
         }
         return Task.CompletedTask;
     }

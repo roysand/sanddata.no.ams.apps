@@ -1,0 +1,5 @@
+
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+
+@reboot sleep 10 && /home/roy/scripts/reboot-iot.sh
